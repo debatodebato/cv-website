@@ -527,7 +527,7 @@ function ProfilePhoto({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       style={{
-        width: "248px",
+        width: "180px",
         aspectRatio: "1 / 1",
         borderRadius: "20px",
         overflow: "hidden",
@@ -636,7 +636,7 @@ export default function App() {
                   fontSize: "32px",
                   color: "#000000",
                   lineHeight: 1.15,
-                  marginTop: "40px",
+                  marginTop: "56px",
                   marginBottom: "16px",
                   fontVariationSettings: '"GRAD" 0, "wdth" 100',
                 }}

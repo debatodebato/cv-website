@@ -50,7 +50,7 @@ type Honour = {
 const emptyProfile: Profile = { name: "", bio: [], photo: "" };
 
 const frostedGlass: React.CSSProperties = {
-  backgroundColor: "rgba(255, 255, 255, 0.65)",
+  backgroundColor: "rgba(255, 255, 255, 0.25)",
   backdropFilter: "blur(20px)",
   WebkitBackdropFilter: "blur(20px)",
   border: "1px solid rgba(255, 255, 255, 0.6)",

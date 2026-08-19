@@ -510,7 +510,7 @@ function HonourCard({ item }: { item: Honour }) {
         </p>
         <p
           style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'Graphik', 'Inter', sans-serif",
             fontSize: "13px",
             lineHeight: 1.6,
             color: "#000000",
@@ -597,7 +597,7 @@ export default function App() {
       style={{
         minHeight: "100vh",
         backgroundColor: "#e8e8e8",
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "'Graphik', 'Inter', sans-serif",
         display: "flex",
         justifyContent: "center",
         padding: "16px 16px 180px",

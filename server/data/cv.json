@@ -77,8 +77,9 @@
       "headline": "Youth Takeover is back at Jameel Arts Centre",
       "year": "2025",
       "logoCrop": {
-        "w": 113,
-        "objectPosition": "center center"
+        "w": 133,
+        "objectPosition": "center center",
+        "h": 33
       },
       "photo": "/uploads/1787158937722-988304.jpeg",
       "logo": "/uploads/press-hypebeast-logo.png",
@@ -95,7 +96,7 @@
       },
       "photo": "/uploads/1787157834745-51898.jpg",
       "logo": "/uploads/press-dazed-logo.png",
-      "link": ""
+      "link": "https://www.instagram.com/reel/DJy_qu1uokf/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==&igsi=MzRlODBiNWFlZA=="
     }
   ],
   "honours": [

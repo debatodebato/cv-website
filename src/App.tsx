@@ -33,7 +33,7 @@ type PressItem = {
   publication: string;
   headline: string;
   year: string;
-  logoCrop?: { w: number; objectPosition: string };
+  logoCrop?: { w: number; h?: number; objectPosition: string };
   photo: string;
   logo: string;
   link?: string;
@@ -399,6 +399,7 @@ function PressCard({ item }: { item: PressItem }) {
   return (
     <Wrapper
       {...linkProps}
+      className={item.link ? "tilt-card" : undefined}
       style={{
         ...frostedGlass,
         borderRadius: "20px",
@@ -440,7 +441,14 @@ function PressCard({ item }: { item: PressItem }) {
         }}
       >
         {item.logoCrop ? (
-          <div style={{ height: "28px", width: `${item.logoCrop.w}px`, overflow: "hidden", flexShrink: 0 }}>
+          <div
+            style={{
+              height: `${item.logoCrop.h ?? 28}px`,
+              width: `${item.logoCrop.w}px`,
+              overflow: "hidden",
+              flexShrink: 0,
+            }}
+          >
             <img
               src={item.logo}
               alt={item.publication}
@@ -480,6 +488,7 @@ function HonourCard({ item }: { item: Honour }) {
   return (
     <Wrapper
       {...linkProps}
+      className={item.link ? "tilt-card" : undefined}
       style={{
         ...frostedGlass,
         borderRadius: "20px",

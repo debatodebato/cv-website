@@ -89,3 +89,18 @@ body {
   animation: slideDown 0.3s ease forwards;
   overflow: hidden;
 }
+
+/* Clickable press/honours cards */
+.tilt-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  transform: rotate(-0.7deg) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tilt-card:active {
+  transform: rotate(-0.7deg) scale(0.99);
+}

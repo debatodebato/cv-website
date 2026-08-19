@@ -596,7 +596,6 @@ export default function App() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#e8e8e8",
         fontFamily: "'Graphik', 'Inter', sans-serif",
         display: "flex",
         justifyContent: "center",

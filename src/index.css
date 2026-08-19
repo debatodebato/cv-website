@@ -50,6 +50,8 @@ body,
 
 body {
   background-color: #e8e8e8;
+  background-image: radial-gradient(circle, #b8b8b8 1px, transparent 1px);
+  background-size: 32px 32px;
   color: #000000;
   font-family: 'Graphik', 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;

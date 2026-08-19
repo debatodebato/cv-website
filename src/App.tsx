@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-// Profile photo
-import imgProfile from "@/imports/Frame3-3/20755331764bb4f5b65a397e6bc239207461329a.png";
-
 // Rolling banner logo images
 import imgBannerLego    from "@/imports/RollingBanner/9a46b3f7300f3b658f22ba5b54f0d4dce54ed0f5.png";
 import imgBannerMcD     from "@/imports/RollingBanner/49ef79aafb8f8f2cc307d42be9330b153af95e07.png";
@@ -16,34 +13,13 @@ import imgBannerLogo34  from "@/imports/RollingBanner/7129b65a6e62a09c138850a755
 import imgBannerLogo74  from "@/imports/RollingBanner/2c446a84793ae883eb45832212ef578e8b076af1.png";
 import imgBannerLogo75  from "@/imports/RollingBanner/dcb8d6db75d9573e9037a5a0271c375563e5fac1.png";
 
-// Press card images — photos
-import imgKhaleejPhoto from "@/imports/Frame8/add0a353a19162760c0f5c176245a97e1a2b0734.png";
-import imgGQPhoto from "@/imports/Frame8/a402a36d9d5f9be32a01f961fd93c05ed7d8a4c6.png";
-import imgDazed1Photo from "@/imports/Frame8/f0a088711c4e1476b47c7684e44d742baf07bc52.png";
-import imgHypebeastPhoto from "@/imports/Frame8/1f5f77a43cc9f85de508c1cb14a3e7f86e5637d7.png";
-import imgDazed2Photo from "@/imports/Frame8/ebbb4cde5bbb07f3299e76cd5c71eeaf2dec2a70.png";
-// Press card images — publication logos
-import imgKhaleejLogo from "@/imports/Frame8/d1d71c9a8dcf4e3e4f98d43048aa0cb38107632f.png";
-import imgGQLogo from "@/imports/Frame8/4504b7ad8db8222e95bf48e86c2024f9f9a5ee47.png";
-import imgDazedLogo from "@/imports/Frame8/9ae5d6310e53e2dfea8a9acaa711d1dcc0928d89.png";
-import imgHypebeastLogo from "@/imports/Frame8/77dedd91d0f40842a369c9171e55dc1c9e9bc2e9.png";
-
 type Section = "experience" | "press" | "honours";
 
-// Text content is fetched from /api/cv at runtime; images stay local
-// bundled assets and are matched back onto that content by `key`.
-const pressImages: Record<string, { photo: string; logo: string }> = {
-  khaleej: { photo: imgKhaleejPhoto, logo: imgKhaleejLogo },
-  gq: { photo: imgGQPhoto, logo: imgGQLogo },
-  dazed1: { photo: imgDazed1Photo, logo: imgDazedLogo },
-  hypebeast: { photo: imgHypebeastPhoto, logo: imgHypebeastLogo },
-  dazed2: { photo: imgDazed2Photo, logo: imgDazedLogo },
-};
-
-const honourImages: Record<string, string> = {
-  venice: imgKhaleejPhoto,
-  artjameel: imgDazed1Photo,
-};
+// All CV content — including image URLs — is fetched from /api/cv at
+// runtime. Images live under public/uploads and are editable via the
+// admin CMS (admin.html); only decorative brand assets (the rolling
+// banner logos above) stay bundled and CMS-unmanaged.
+type Profile = { name: string; bio: string[]; photo: string };
 
 type Experience = {
   title: string;
@@ -69,7 +45,10 @@ type Honour = {
   photo: string;
 };
 
+const emptyProfile: Profile = { name: "", bio: [], photo: "" };
+
 function useCvData() {
+  const [profile, setProfile] = useState<Profile>(emptyProfile);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [pressItems, setPressItems] = useState<PressItem[]>([]);
   const [honours, setHonours] = useState<Honour[]>([]);
@@ -79,27 +58,20 @@ function useCvData() {
 
     fetch("/api/cv")
       .then((res) => res.json())
-      .then(
-        (data: {
-          experiences: Experience[];
-          pressItems: Omit<PressItem, "photo" | "logo">[];
-          honours: Omit<Honour, "photo">[];
-        }) => {
-          if (cancelled) return;
-          setExperiences(data.experiences);
-          setPressItems(
-            data.pressItems.map((item) => ({ ...item, ...pressImages[item.key] })),
-          );
-          setHonours(data.honours.map((item) => ({ ...item, photo: honourImages[item.key] })));
-        },
-      );
+      .then((data: { profile: Profile; experiences: Experience[]; pressItems: PressItem[]; honours: Honour[] }) => {
+        if (cancelled) return;
+        setProfile(data.profile);
+        setExperiences(data.experiences);
+        setPressItems(data.pressItems);
+        setHonours(data.honours);
+      });
 
     return () => {
       cancelled = true;
     };
   }, []);
 
-  return { experiences, pressItems, honours };
+  return { profile, experiences, pressItems, honours };
 }
 
 function IconExperience({ active }: { active: boolean }) {
@@ -535,7 +507,7 @@ function HonourCard({ item }: { item: Honour }) {
   );
 }
 
-function ProfilePhoto() {
+function ProfilePhoto({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       style={{
@@ -546,11 +518,13 @@ function ProfilePhoto() {
         flexShrink: 0,
       }}
     >
-      <img
-        src={imgProfile}
-        alt="Desirée Barreto"
-        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 15%" }}
-      />
+      {src && (
+        <img
+          src={src}
+          alt={alt}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 15%" }}
+        />
+      )}
     </div>
   );
 }
@@ -600,7 +574,7 @@ function ContactRow({
 
 export default function App() {
   const [section, setSection] = useState<Section>("experience");
-  const { experiences, pressItems, honours } = useCvData();
+  const { profile, experiences, pressItems, honours } = useCvData();
 
   return (
     <div
@@ -639,7 +613,7 @@ export default function App() {
           <>
             {/* Profile card */}
             <div style={{ backgroundColor: "#ffffff", borderRadius: "24px", padding: "28px 24px 32px" }}>
-              <ProfilePhoto />
+              <ProfilePhoto src={profile.photo} alt={profile.name} />
               <h1
                 style={{
                   fontFamily: "'Roboto Serif', serif",
@@ -652,19 +626,22 @@ export default function App() {
                   fontVariationSettings: '"GRAD" 0, "wdth" 100',
                 }}
               >
-                Desirée Barreto
+                {profile.name}
               </h1>
-              <p style={{ fontFamily: "'Graphik', 'Inter', sans-serif", fontSize: "14px", lineHeight: 1.75, color: "#000000", marginBottom: "14px" }}>
-                My creativity thrives where cultural pulse encounters systems design.
-                Based in Dubai, I am a human-centred designer, strategist, and design
-                educator, skilled at design systems, brand and CX strategy and
-                go-to-market activation.
-              </p>
-              <p style={{ fontFamily: "'Graphik', 'Inter', sans-serif", fontSize: "14px", lineHeight: 1.75, color: "#000000" }}>
-                My experience spans strategic synthesis across categories (tech, ed,
-                QSR, FMCG, hospitality, cultural institutions), operationalising
-                strategy at scale, and leading cross-functional teams.
-              </p>
+              {profile.bio.map((para, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "'Graphik', 'Inter', sans-serif",
+                    fontSize: "14px",
+                    lineHeight: 1.75,
+                    color: "#000000",
+                    marginBottom: i < profile.bio.length - 1 ? "14px" : 0,
+                  }}
+                >
+                  {para}
+                </p>
+              ))}
             </div>
 
             {/* Marquee card — has its own bg + radius */}

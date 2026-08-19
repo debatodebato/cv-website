@@ -15,4 +15,12 @@ export default defineConfig({
       '/api': `http://localhost:${process.env.API_PORT || 4000}`,
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(import.meta.dirname, 'index.html'),
+        admin: path.resolve(import.meta.dirname, 'admin.html'),
+      },
+    },
+  },
 })

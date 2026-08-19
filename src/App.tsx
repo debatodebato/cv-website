@@ -49,6 +49,14 @@ type Honour = {
 
 const emptyProfile: Profile = { name: "", bio: [], photo: "" };
 
+const frostedGlass: React.CSSProperties = {
+  backgroundColor: "rgba(255, 255, 255, 0.45)",
+  backdropFilter: "blur(20px)",
+  WebkitBackdropFilter: "blur(20px)",
+  border: "1px solid rgba(255, 255, 255, 0.6)",
+  boxShadow: "0 4px 24px rgba(0, 0, 0, 0.04)",
+};
+
 function useCvData() {
   const [profile, setProfile] = useState<Profile>(emptyProfile);
   const [experiences, setExperiences] = useState<Experience[]>([]);
@@ -274,7 +282,7 @@ function ExperienceCard({
       onClick={() => setOpen(!open)}
       className="cursor-pointer select-none w-full flex flex-col items-start"
       style={{
-        backgroundColor: "#f2f2f2",
+        ...frostedGlass,
         borderRadius: "20px",
         padding: "20px 24px",
         gap: open ? "16px" : "0",
@@ -392,7 +400,7 @@ function PressCard({ item }: { item: PressItem }) {
     <Wrapper
       {...linkProps}
       style={{
-        backgroundColor: "#f2f2f2",
+        ...frostedGlass,
         borderRadius: "20px",
         display: "flex",
         gap: "20px",
@@ -473,7 +481,7 @@ function HonourCard({ item }: { item: Honour }) {
     <Wrapper
       {...linkProps}
       style={{
-        backgroundColor: "#f2f2f2",
+        ...frostedGlass,
         borderRadius: "20px",
         display: "flex",
         gap: "20px",

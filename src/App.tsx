@@ -36,6 +36,7 @@ type PressItem = {
   logoCrop?: { w: number; objectPosition: string };
   photo: string;
   logo: string;
+  link?: string;
 };
 
 type Honour = {
@@ -43,6 +44,7 @@ type Honour = {
   title: string;
   detail: string;
   photo: string;
+  link?: string;
 };
 
 const emptyProfile: Profile = { name: "", bio: [], photo: "" };
@@ -382,8 +384,13 @@ function ExperienceCard({
 }
 
 function PressCard({ item }: { item: PressItem }) {
+  const Wrapper = item.link ? "a" : "div";
+  const linkProps = item.link
+    ? { href: item.link, target: "_blank", rel: "noopener noreferrer" }
+    : {};
   return (
-    <div
+    <Wrapper
+      {...linkProps}
       style={{
         backgroundColor: "#f2f2f2",
         borderRadius: "20px",
@@ -392,6 +399,8 @@ function PressCard({ item }: { item: PressItem }) {
         padding: "16px",
         alignItems: "flex-end",
         width: "100%",
+        textDecoration: "none",
+        cursor: item.link ? "pointer" : "default",
       }}
     >
       {/* Left: article photo */}
@@ -451,13 +460,18 @@ function PressCard({ item }: { item: PressItem }) {
           {item.headline}
         </p>
       </div>
-    </div>
+    </Wrapper>
   );
 }
 
 function HonourCard({ item }: { item: Honour }) {
+  const Wrapper = item.link ? "a" : "div";
+  const linkProps = item.link
+    ? { href: item.link, target: "_blank", rel: "noopener noreferrer" }
+    : {};
   return (
-    <div
+    <Wrapper
+      {...linkProps}
       style={{
         backgroundColor: "#f2f2f2",
         borderRadius: "20px",
@@ -466,6 +480,8 @@ function HonourCard({ item }: { item: Honour }) {
         padding: "16px",
         alignItems: "flex-end",
         width: "100%",
+        textDecoration: "none",
+        cursor: item.link ? "pointer" : "default",
       }}
     >
       {/* Photo */}
@@ -503,7 +519,7 @@ function HonourCard({ item }: { item: Honour }) {
           {item.detail}
         </p>
       </div>
-    </div>
+    </Wrapper>
   );
 }
 

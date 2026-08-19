@@ -5,7 +5,7 @@
       "My creativity thrives where cultural pulse encounters systems design. Based in Dubai, I am a human-centred designer, strategist, and design educator, skilled at design systems, brand and CX strategy and go-to-market activation.",
       "My experience spans strategic synthesis across categories (tech, ed, QSR, FMCG, hospitality, cultural institutions), operationalising strategy at scale, and leading cross-functional teams."
     ],
-    "photo": "/uploads/profile.png"
+    "photo": "/uploads/1787157754605-293726.JPG"
   },
   "experiences": [
     {
@@ -45,8 +45,9 @@
       "publication": "Khaleej Times",
       "headline": "How a Dubai programme is giving students a head start in AI, digital creation",
       "year": "2025",
-      "photo": "/uploads/press-khaleej-photo.png",
-      "logo": "/uploads/press-khaleej-logo.png"
+      "photo": "/uploads/1787158255686-988863.png",
+      "logo": "/uploads/press-khaleej-logo.png",
+      "link": ""
     },
     {
       "key": "gq",
@@ -54,7 +55,8 @@
       "headline": "A Word With the Curators of Jameel Arts Centre's Youth Takeover",
       "year": "2025",
       "photo": "/uploads/press-gq-photo.png",
-      "logo": "/uploads/press-gq-logo.png"
+      "logo": "/uploads/press-gq-logo.png",
+      "link": ""
     },
     {
       "key": "dazed1",
@@ -66,7 +68,8 @@
         "objectPosition": "center center"
       },
       "photo": "/uploads/press-dazed1-photo.png",
-      "logo": "/uploads/press-dazed-logo.png"
+      "logo": "/uploads/press-dazed-logo.png",
+      "link": ""
     },
     {
       "key": "hypebeast",
@@ -78,7 +81,8 @@
         "objectPosition": "center center"
       },
       "photo": "/uploads/press-hypebeast-photo.png",
-      "logo": "/uploads/press-hypebeast-logo.png"
+      "logo": "/uploads/press-hypebeast-logo.png",
+      "link": ""
     },
     {
       "key": "dazed2",
@@ -89,8 +93,9 @@
         "w": 101,
         "objectPosition": "center center"
       },
-      "photo": "/uploads/press-dazed2-photo.png",
-      "logo": "/uploads/press-dazed-logo.png"
+      "photo": "/uploads/1787157834745-51898.jpg",
+      "logo": "/uploads/press-dazed-logo.png",
+      "link": ""
     }
   ],
   "honours": [
@@ -98,13 +103,15 @@
       "key": "venice",
       "title": "Selected as Cultural Representative at Venice Biennale 2026",
       "detail": "Representing UAE National Pavillion,  commissioned by the Salama bint Hamdan Al Nahyan Foundation and supported by the UAE Ministry of Culture.",
-      "photo": "/uploads/press-khaleej-photo.png"
+      "photo": "/uploads/press-khaleej-photo.png",
+      "link": ""
     },
     {
       "key": "artjameel",
       "title": "Selected for Art Jameel's  Youth Assembly 2024-2025",
       "detail": "One of nine selected for the coveted artistic leadership programme.",
-      "photo": "/uploads/press-dazed1-photo.png"
+      "photo": "/uploads/1787157953190-937972.jpg",
+      "link": ""
     }
   ]
 }

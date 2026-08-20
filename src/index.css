@@ -25,6 +25,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'LED Counter 7';
+  src: url('/fonts/LEDCounter7.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LED Counter 7';
+  src: url('/fonts/LEDCounter7-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   --font-mono: 'Space Mono', monospace;
   --font-sans: 'Graphik', 'Inter', sans-serif;

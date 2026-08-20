@@ -217,7 +217,7 @@ function SectionToggle({
           <Icon active={active === key} />
           <span
             style={{
-              fontFamily: "'VT323', monospace",
+              fontFamily: "'LED Counter 7', 'VT323', monospace",
               fontSize: "clamp(10px, 3vw, 14px)",
               letterSpacing: "0.08em",
               lineHeight: 1,
@@ -313,7 +313,7 @@ function ExperienceCard({
         >
           <p
             style={{
-              fontFamily: "'VT323', monospace",
+              fontFamily: "'LED Counter 7', 'VT323', monospace",
               fontSize: "12px",
               color: "rgba(0,0,0,0.45)",
               textTransform: "uppercase",
@@ -362,7 +362,7 @@ function ExperienceCard({
           >
             <p
               style={{
-                fontFamily: "'VT323', monospace",
+                fontFamily: "'LED Counter 7', 'VT323', monospace",
                 fontSize: "20px",
                 color: "#000000",
                 textTransform: "uppercase",
@@ -381,7 +381,7 @@ function ExperienceCard({
         <div className="accordion-body w-full" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <p
             style={{
-              fontFamily: "'VT323', monospace",
+              fontFamily: "'LED Counter 7', 'VT323', monospace",
               fontSize: "11px",
               color: "rgba(0,0,0,0.45)",
               textTransform: "uppercase",
@@ -583,7 +583,7 @@ function ContactRow({
     <div className="flex items-center justify-between py-4">
       <span
         style={{
-          fontFamily: "'VT323', monospace",
+          fontFamily: "'LED Counter 7', 'VT323', monospace",
           fontSize: "9px",
           letterSpacing: "0.12em",
           color: "#999999",

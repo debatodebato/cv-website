@@ -57,6 +57,17 @@ const frostedGlass: React.CSSProperties = {
   boxShadow: "0 4px 24px rgba(0, 0, 0, 0.04)",
 };
 
+// Scales from a 88px thumbnail up to the desktop 220px photo, so the
+// side-by-side layout holds at any width instead of squeezing the text
+// column down to near-zero on small phones.
+const cardPhotoStyle: React.CSSProperties = {
+  width: "clamp(88px, 39%, 220px)",
+  aspectRatio: "220 / 190",
+  flexShrink: 0,
+  borderRadius: "12px",
+  overflow: "hidden",
+};
+
 function useCvData() {
   const [profile, setProfile] = useState<Profile>(emptyProfile);
   const [experiences, setExperiences] = useState<Experience[]>([]);
@@ -190,7 +201,7 @@ function SectionToggle({
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            gap: "10px",
+            gap: "clamp(4px, 2vw, 10px)",
             padding: "9px 4px 8px",
             borderRadius: "16px",
             backgroundColor: "transparent",
@@ -199,16 +210,21 @@ function SectionToggle({
             cursor: "pointer",
             position: "relative",
             zIndex: 1,
+            minWidth: 0,
             transition: "color 0.28s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
           <Icon active={active === key} />
           <span
             style={{
-              fontFamily: "'LED Counter 7', 'VT323', monospace",
-              fontSize: "14px",
+              fontFamily: "'VT323', monospace",
+              fontSize: "clamp(10px, 3vw, 14px)",
               letterSpacing: "0.08em",
               lineHeight: 1,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              minWidth: 0,
             }}
           >
             {label}
@@ -297,7 +313,7 @@ function ExperienceCard({
         >
           <p
             style={{
-              fontFamily: "'LED Counter 7', 'VT323', monospace",
+              fontFamily: "'VT323', monospace",
               fontSize: "12px",
               color: "rgba(0,0,0,0.45)",
               textTransform: "uppercase",
@@ -365,7 +381,7 @@ function ExperienceCard({
         <div className="accordion-body w-full" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <p
             style={{
-              fontFamily: "'LED Counter 7', 'VT323', monospace",
+              fontFamily: "'VT323', monospace",
               fontSize: "11px",
               color: "rgba(0,0,0,0.45)",
               textTransform: "uppercase",
@@ -404,8 +420,8 @@ function PressCard({ item }: { item: PressItem }) {
         ...frostedGlass,
         borderRadius: "20px",
         display: "flex",
-        gap: "20px",
-        padding: "16px",
+        gap: "clamp(12px, 5vw, 20px)",
+        padding: "clamp(12px, 4vw, 16px)",
         alignItems: "flex-end",
         width: "100%",
         textDecoration: "none",
@@ -413,15 +429,7 @@ function PressCard({ item }: { item: PressItem }) {
       }}
     >
       {/* Left: article photo */}
-      <div
-        style={{
-          width: "220px",
-          height: "190px",
-          flexShrink: 0,
-          borderRadius: "12px",
-          overflow: "hidden",
-        }}
-      >
+      <div style={cardPhotoStyle}>
         <img
           src={item.photo}
           alt={item.publication}
@@ -493,8 +501,8 @@ function HonourCard({ item }: { item: Honour }) {
         ...frostedGlass,
         borderRadius: "20px",
         display: "flex",
-        gap: "20px",
-        padding: "16px",
+        gap: "clamp(12px, 5vw, 20px)",
+        padding: "clamp(12px, 4vw, 16px)",
         alignItems: "flex-end",
         width: "100%",
         textDecoration: "none",
@@ -502,7 +510,7 @@ function HonourCard({ item }: { item: Honour }) {
       }}
     >
       {/* Photo */}
-      <div style={{ width: "220px", height: "190px", flexShrink: 0, borderRadius: "12px", overflow: "hidden" }}>
+      <div style={cardPhotoStyle}>
         <img
           src={item.photo}
           alt={item.title}
@@ -575,7 +583,7 @@ function ContactRow({
     <div className="flex items-center justify-between py-4">
       <span
         style={{
-          fontFamily: "'LED Counter 7', 'VT323', monospace",
+          fontFamily: "'VT323', monospace",
           fontSize: "9px",
           letterSpacing: "0.12em",
           color: "#999999",

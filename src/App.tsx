@@ -57,16 +57,54 @@ const frostedGlass: React.CSSProperties = {
   boxShadow: "0 4px 24px rgba(0, 0, 0, 0.04)",
 };
 
-// Scales from a 88px thumbnail up to the desktop 220px photo, so the
-// side-by-side layout holds at any width instead of squeezing the text
-// column down to near-zero on small phones.
+// Every press/honours card holds this exact height, scaling from a
+// compact mobile size up to the desktop 190px photo height, so all
+// cards line up evenly regardless of headline/detail text length.
+const cardMediaHeight = "clamp(120px, 40vw, 190px)";
+
+const cardStyle: React.CSSProperties = {
+  ...frostedGlass,
+  borderRadius: "20px",
+  display: "flex",
+  gap: "clamp(12px, 5vw, 20px)",
+  padding: "clamp(12px, 4vw, 16px)",
+  alignItems: "stretch",
+  height: cardMediaHeight,
+  width: "100%",
+  textDecoration: "none",
+};
+
+// Photo fills the card's full height; width follows from the desktop
+// 220/190 aspect ratio so it never distorts.
 const cardPhotoStyle: React.CSSProperties = {
-  width: "clamp(88px, 39%, 220px)",
+  height: "100%",
   aspectRatio: "220 / 190",
   flexShrink: 0,
   borderRadius: "12px",
   overflow: "hidden",
 };
+
+const cardTextColumnStyle: React.CSSProperties = {
+  flex: 1,
+  minWidth: 0,
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  gap: "clamp(6px, 2vw, 10px)",
+  overflow: "hidden",
+};
+
+// Clamps text to a fixed number of lines with an ellipsis, so long
+// copy truncates instead of growing the card past its fixed height.
+function lineClamp(lines: number): React.CSSProperties {
+  return {
+    display: "-webkit-box",
+    WebkitLineClamp: lines,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  };
+}
 
 function useCvData() {
   const [profile, setProfile] = useState<Profile>(emptyProfile);
@@ -416,17 +454,7 @@ function PressCard({ item }: { item: PressItem }) {
     <Wrapper
       {...linkProps}
       className={item.link ? "tilt-card" : undefined}
-      style={{
-        ...frostedGlass,
-        borderRadius: "20px",
-        display: "flex",
-        gap: "clamp(12px, 5vw, 20px)",
-        padding: "clamp(12px, 4vw, 16px)",
-        alignItems: "flex-end",
-        width: "100%",
-        textDecoration: "none",
-        cursor: item.link ? "pointer" : "default",
-      }}
+      style={{ ...cardStyle, cursor: item.link ? "pointer" : "default" }}
     >
       {/* Left: article photo */}
       <div style={cardPhotoStyle}>
@@ -438,20 +466,11 @@ function PressCard({ item }: { item: PressItem }) {
       </div>
 
       {/* Right: publication logo + headline */}
-      <div
-        style={{
-          flex: 1,
-          minWidth: 0,
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          paddingBottom: "4px",
-        }}
-      >
+      <div style={cardTextColumnStyle}>
         {item.logoCrop ? (
           <div
             style={{
-              height: `${item.logoCrop.h ?? 28}px`,
+              height: `${item.logoCrop.h ?? 22}px`,
               width: `${item.logoCrop.w}px`,
               overflow: "hidden",
               flexShrink: 0,
@@ -467,7 +486,7 @@ function PressCard({ item }: { item: PressItem }) {
           <img
             src={item.logo}
             alt={item.publication}
-            style={{ height: "28px", width: "auto", maxWidth: "220px", objectFit: "contain", objectPosition: "left center" }}
+            style={{ height: "22px", width: "auto", maxWidth: "180px", objectFit: "contain", objectPosition: "left center", flexShrink: 0 }}
           />
         )}
         <p
@@ -479,6 +498,7 @@ function PressCard({ item }: { item: PressItem }) {
             lineHeight: 1.35,
             wordBreak: "break-word",
             fontVariationSettings: '"GRAD" 0, "wdth" 100',
+            ...lineClamp(3),
           }}
         >
           {item.headline}
@@ -497,17 +517,7 @@ function HonourCard({ item }: { item: Honour }) {
     <Wrapper
       {...linkProps}
       className={item.link ? "tilt-card" : undefined}
-      style={{
-        ...frostedGlass,
-        borderRadius: "20px",
-        display: "flex",
-        gap: "clamp(12px, 5vw, 20px)",
-        padding: "clamp(12px, 4vw, 16px)",
-        alignItems: "flex-end",
-        width: "100%",
-        textDecoration: "none",
-        cursor: item.link ? "pointer" : "default",
-      }}
+      style={{ ...cardStyle, cursor: item.link ? "pointer" : "default" }}
     >
       {/* Photo */}
       <div style={cardPhotoStyle}>
@@ -519,7 +529,7 @@ function HonourCard({ item }: { item: Honour }) {
       </div>
 
       {/* Text */}
-      <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: "10px", paddingBottom: "4px" }}>
+      <div style={cardTextColumnStyle}>
         <p
           style={{
             fontFamily: "'Roboto Serif', serif",
@@ -529,6 +539,7 @@ function HonourCard({ item }: { item: Honour }) {
             lineHeight: 1.35,
             wordBreak: "break-word",
             fontVariationSettings: '"GRAD" 0, "wdth" 100',
+            ...lineClamp(3),
           }}
         >
           {item.title}
@@ -539,6 +550,7 @@ function HonourCard({ item }: { item: Honour }) {
             fontSize: "13px",
             lineHeight: 1.6,
             color: "#000000",
+            ...lineClamp(3),
           }}
         >
           {item.detail}
